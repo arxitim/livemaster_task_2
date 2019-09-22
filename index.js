@@ -1,86 +1,78 @@
 window.onload = function() {
 
-    function ascendingOrder() {
-        for (var i = 0; i < items.length; i++)
-            items[i].style.order = items[i].innerText;
+    function sortList(flag=true) {
+        var toSort = document.getElementById('sortable').children;
+        toSort = Array.prototype.slice.call(toSort, 0);
+
+        toSort.sort(function(a, b) {
+            var aord = a.innerText;
+            var bord = b.innerText;
+
+            if (flag) 
+                return (aord > bord) ? 1 : -1;
+            else
+                return (aord < bord) ? 1 : -1;
+        });
+
+        var parent = document.getElementById('sortable');
+        parent.innerHTML = "";
+
+        for (var i = 0, l = toSort.length; i < l; i++) {
+            parent.appendChild(toSort[i]);
+        }
     }
+
     
-    function descendingOrder() {
-        for (var i = 0; i < items.length; i++)
-            items[i].style.order = 9 - items[i].innerText;
-    }
-     
-    var items = document.querySelectorAll(".item");
     var MaxButton = document.getElementById("sortByMaxValue");
     var MinButton = document.getElementById("sortByMinValue");
-    
-    
     MaxButton.onclick = function() {
-        ascendingOrder()
+        sortList()
     }
     
     MinButton.onclick = function() {
-        descendingOrder()
+        sortList(flag=false)
     }
-
-    $(function() {
- 
-    $(".item").draggable({
-
-      // ドラッグ開始時
-      start : function (event , ui){
-        var target = document.getElementById(this.id);
-        target.style.zIndex=100;
-      },
-
-      // ドラッグ終了時
-      stop : function (event , ui){
-          // console.log(event , ui);
-
-          var nowPosition = new Object();
-          var newPosition = new Array();
-
-          // 現在のポジションを取得する
-          for (var i = 1; i < 9; i++) {
-              var positionData = getPosition(i);
-              nowPosition = {'name':'item'+i,'position':positionData};
-
-               newPosition.push(nowPosition);
-          }
-
-          // ソート
-          newPosition.sort(function(a,b){
-                  if( a['position'] > b['position'] ) return -1;
-                  if( a['position'] < b['position'] ) return 1;
-                  return 0;
-          });
-
-          // Orderを入れる
-          var number = 0;
-          for (var i = newPosition.length; i--; ) {
-              console.log(newPosition[i].name);
-
-              var tmpItem = document.getElementById(newPosition[i].name);
-              tmpItem.style.order = number;
-              tmpItem.style.left = 0;
-              tmpItem.style.top = 0;
-
-              number ++;
-          }
-
-        // 最後にz-indexを元に戻す
-        var target = document.getElementById(this.id);
-        target.style.zIndex=0;
-      }
-
-    });
-
-    // position取得の関数
-    function getPosition(item){
-      var tmpItem = document.getElementById('item'+item);
-      // console.dir(tmpItem);
-      return tmpItem.offsetLeft;
+    
+    var delButton = document.getElementById("delbutt");
+    delButton.onclick = function() {
+        var delElements = document.querySelectorAll(".flag");
+        for (var i=0; i < delElements.length; i++) {
+            delElements[i].remove()
+        }
     }
+    
+    var maximizeButton = document.getElementsByClassName("few")[0];
+    maximizeButton.onclick = function() {
+        var elements = document.querySelectorAll(".item");
+        for (var i=0; i < elements.length; i++) {
+            elements[i].style = "width: 420px; height:420px; line-height: 420px; font-size: 200px"
+        }
+    }
+    
+    var minimizeButton = document.getElementsByClassName("much")[0];
+    minimizeButton.onclick = function() {
+        var elements = document.querySelectorAll(".item");
+        for (var i=0; i < elements.length; i++) {
+            elements[i].style = "width: 200px; height:200px; line-height: 200px; font-size: 100px"
+        }
+    }
+    
+    // DON'T TOUCH
+    $( function() {
+        $("#sortable").sortable({
+          revert: true,
+          containment: "parent",
+          cursor: "pointer"
+        });
+        
+    $("#draggable").draggable({
+      connectToSortable: "#sortable",
+      helper: "clone",
+      revert: true,
+      });
+        
+    
+    $("div").disableSelection();
     });
 
 };

@@ -24,13 +24,13 @@ body {
 .sorting:hover {
     text-decoration: none;
     border-bottom: 0;
+    cursor: pointer;
 }
 
-.items {
+#sortable {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-    margin: 10px 20px;
+    margin: 10px 0px;
 }
 
 .item {
@@ -41,14 +41,17 @@ body {
     color: #e1e1e1;
     text-align: center;
     line-height: 200px;
-    margin: 10px 0;
-
+    margin: 10px 0 10px 20px;
+    -webkit-user-select: none;
 }
 
-.delbutt {
+.flag {
+    background-color: brown;
+}
+
+#delbutt {
     float:left;
     margin:0 20px;
-
 }
 
 .view {
@@ -57,6 +60,7 @@ body {
   height: 23px;
   width: 23px;
   display: inline-block;
+  cursor: pointer;
 }
 
 .much {
@@ -66,4 +70,3 @@ body {
 .few {
     background-position: -216px top;
 }
-

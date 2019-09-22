@@ -5,31 +5,50 @@
     <title>livemasterTask2</title>
     <link rel="stylesheet" href="index.css">
     <script src="index.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        // problems with namespaces ¯\_(ツ)_/¯
+        
+        function select_element(elem) {
+            if (elem.classList.contains("flag")) {
+                elem.classList.remove("flag")
+            }
+            else {
+                elem.classList.add("flag")
+            }
+            
+            // button activate/deactivate
+            if (document.querySelectorAll(".flag").length != 0)
+                document.getElementById("delbutt").removeAttribute("disabled");
+            else 
+                document.getElementById("delbutt").setAttribute("disabled", "disabled")       
+        }
+    
+    </script>
 </head>
 <body>
     
     <div class="container">
         <div class="right_pos">Сортировать по 
-            <a class="sorting" href="#" id="sortByMaxValue">возрастанию</a> |
-            <a class="sorting" href="#" id="sortByMinValue">убыванию</a></div>
+            <a class="sorting" id="sortByMaxValue">возрастанию</a> |
+            <a class="sorting" id="sortByMinValue">убыванию</a></div>
         
-        <div class="items">
-            <div id="item1" class="item">8</div>
-            <div id="item2" class="item">2</div>
-            <div id="item3" class="item">4</div>
-            <div id="item4" class="item">3</div>
-            <div id="item5" class="item">5</div>
-            <div id="item6" class="item">6</div>
-            <div id="item7" class="item">7</div>
-            <div id="item8" class="item">1</div>
+        <div id="sortable">
+            <div class="item ui-state-default" onclick="select_element(this)">8</div>
+            <div class="item ui-state-default" onclick="select_element(this)">2</div>
+            <div class="item ui-state-default" onclick="select_element(this)">4</div>
+            <div class="item ui-state-default" onclick="select_element(this)">3</div>
+            <div class="item ui-state-default" onclick="select_element(this)">5</div>
+            <div class="item ui-state-default" onclick="select_element(this)">6</div>
+            <div class="item ui-state-default" onclick="select_element(this)">7</div>
+            <div class="item ui-state-default" onclick="select_element(this)">1</div>
         </div>
         
-        <button class="delbutt" disabled>Удалить</button>
+        <button id="delbutt" disabled>Удалить</button>
         <div class="right_pos">
-            <a href="#" class="view much"></a>
-            <a href="#" class="view few"></a>
+            <a class="view much"></a>
+            <a class="view few"></a>
         </div>
    
     </div>
