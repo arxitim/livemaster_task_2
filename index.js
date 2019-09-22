@@ -39,6 +39,8 @@ window.onload = function() {
         for (var i=0; i < delElements.length; i++) {
             delElements[i].remove()
         }
+        
+        document.getElementById("delbutt").setAttribute("disabled", "disabled")     
     }
     
     var maximizeButton = document.getElementsByClassName("few")[0];
